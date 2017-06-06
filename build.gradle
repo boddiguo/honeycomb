@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        maven { url 'http://nexus.dianrong.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'io.spring.gradle:dependency-management-plugin:1.0.2.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE'
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    group 'com.boddi.honeycomb'
+
+    version '1.0-SNAPSHOT'
+
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+
+    repositories {
+        maven { url 'http://nexus.dianrong.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
+
+    dependencies {
+
+        compile group: 'joda-time', name: 'joda-time', version: '2.9.9'
+
+        compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
+
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+
+        compile 'com.alibaba:fastjson:1.2.7',
+            'com.alibaba:druid:1.0.18'
+
+        compile 'com.oracle:ojdbc6:11.2.0.2.0'
+//        compile 'mysql:mysql-connector-java:5.1.39'
+
+        compile 'com.google.guava:guava:20.0'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+    }
+}

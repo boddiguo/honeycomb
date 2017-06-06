@@ -1,0 +1,4 @@
+rootProject.name = 'honeycomb'
+include 'spark-bee'
+include 'canal-parser'
+

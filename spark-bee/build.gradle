@@ -1,0 +1,42 @@
+group 'com.boddi.honeycomb'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+//apply plugin: 'scala'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+//
+//sourceSets {
+//    main {
+//        java {
+//            srcDirs = ['src/java']
+//        }
+//        scala {
+//            srcDirs = ['src/scala']
+//        }
+//    }
+//    test {
+//        java {
+//            srcDirs = ['test/java']
+//        }
+//        scala {
+//            srcDirs = ['test/scala']
+//        }
+//    }
+//}
+
+dependencies {
+//    compile 'mysql:mysql-connector-java:6.0.6'
+    compile 'mysql:mysql-connector-java:5.1.39'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.16'
+
+    compile group: 'org.apache.spark', name: 'spark-core_2.10', version: '2.1.0'
+    compile group: 'org.apache.spark', name: 'spark-sql_2.10', version: '2.1.0'
+    compile group: 'org.apache.spark', name: 'spark-streaming_2.10', version: '2.1.0'
+    compile group: 'commons-dbutils', name: 'commons-dbutils', version: '1.6'
+
+}
