@@ -1,1 +1,0 @@
-{"jndi_name":"SLMAIN", "driver":"oracle.jdbc.driver.OracleDriver", "url":"jdbc:oracle:thin:@10.18.19.33:1521:dbdev2", "user":"sl_main", "password":"sl_main"}
