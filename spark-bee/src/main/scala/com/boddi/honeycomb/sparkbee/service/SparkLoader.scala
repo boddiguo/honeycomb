@@ -10,33 +10,34 @@ import scala.reflect.io.{File, Path}
   */
 class SparkLoader(sparkSession:SparkSession) extends java.io.Serializable {
 
-  def execute(tableName:String, updatedAt:String): Unit = {
-    sparkSession.read.parquet("./odl/"+tableName).createOrReplaceTempView(tableName)
+  def execute(tableName:String, updatedAt:String, hdfsPath:String, dataStr:String): Unit = {
+    val filePath = hdfsPath + "/odl/" + tableName + "/" + dataStr
+    sparkSession.read.parquet(filePath).createOrReplaceTempView(tableName)
+    val incPath = hdfsPath + "/odl/" + tableName + "_inc"
     sparkSession.sql(s"select * from (SELECT d.*,row_number() over(partition by dw_key order by dw_updated_at desc) rn " +
       s"from  $tableName d WHERE DATA_DATE>'2017-06-05 11:39') d where d.rn=1")
-      .write.mode(org.apache.spark.sql.SaveMode.Overwrite).parquet("./odl/"+tableName+"_inc")
+      .write.mode(org.apache.spark.sql.SaveMode.Overwrite).parquet(incPath)
 
-    sparkSession.read.parquet("./odl/"+tableName+"_inc").createOrReplaceTempView(tableName+"_inc")
-    val path = Path("./idl/"+tableName)
-    if (path.exists) {
-      sparkSession.read.parquet("./idl/"+tableName).createOrReplaceTempView(tableName+"_idl")
+    sparkSession.read.parquet(incPath).createOrReplaceTempView(tableName+"_inc")
+    val idlPath = hdfsPath + "/idl/" + tableName
+    if (Path(idlPath).exists) {
+      sparkSession.read.parquet(idlPath).createOrReplaceTempView(tableName+"_idl")
       sparkSession.sql(" SELECT  * FROM " + tableName + "_inc " +
         "UNION ALL    " +
         "SELECT TGT.* FROM  ( SELECT  *  FROM  " + tableName + "_idl) TGT  " +
         "LEFT JOIN "  + tableName + "_inc SRC " +
         "ON    (TGT.dw_key=SRC.dw_key)    " +
         "WHERE    SRC.dw_key IS NULL").write
-        .mode(org.apache.spark.sql.SaveMode.Overwrite).parquet("./idl/"+tableName+"_temp")
-      sparkSession.read.parquet("./idl/"+tableName+"_temp").createOrReplaceTempView(tableName+"_idl_tmp")
+        .mode(org.apache.spark.sql.SaveMode.Overwrite).parquet(hdfsPath + "/idl/"+tableName+"_temp")
+      sparkSession.read.parquet(hdfsPath + "/idl/"+tableName+"_temp").createOrReplaceTempView(tableName+"_idl_tmp")
 
       sparkSession.sql("select * from "+ tableName + "_idl_tmp").
-        write.mode(org.apache.spark.sql.SaveMode.Overwrite).parquet("./idl/"+tableName)
+        write.mode(org.apache.spark.sql.SaveMode.Overwrite).parquet(idlPath)
     } else {
-      sparkSession.sql(s"select * from "+tableName+"_inc").write.parquet("./idl/"+tableName)
-
+      sparkSession.sql(s"select * from "+tableName+"_inc").write.parquet(idlPath)
     }
 
-    sparkSession.read.parquet("./idl/"+tableName).createOrReplaceTempView(tableName+"_idl")
+    sparkSession.read.parquet(idlPath).createOrReplaceTempView(tableName+"_idl")
     sparkSession.sql("select count(*) from "+ tableName+"_idl").foreach(println(_))
     sparkSession.sql("select count(*) from "+ tableName+"_inc").foreach(println(_))
   }

@@ -32,7 +32,7 @@ class SparkExtractor(sparkSession:SparkSession)   extends java.io.Serializable {
          "password" -> password)).load()
      jdbcDF.createOrReplaceTempView(toTable)
      val dataFrame = sparkSession.sql(s"select REVERSE(CAST($primaryKey as char(50))) as DW_KEY,'$updatedAt' as DW_UPDATED_AT,d.* from $fromTable d where $condition");
-     val filePath = hdfsPath + "/DATA_DATE=" + dataStr
+     val filePath = hdfsPath + "/odl/DATA_DATE=" + dataStr
      val path = Path(filePath)
      if (path.exists) {
        try {

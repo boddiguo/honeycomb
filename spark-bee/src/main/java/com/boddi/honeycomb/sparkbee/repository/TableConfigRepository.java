@@ -51,6 +51,7 @@ public class TableConfigRepository {
           }, batchId);
     } catch (SQLException e) {
        logger.error("query table configs error", e);
+    } finally {
     }
 
     return null;

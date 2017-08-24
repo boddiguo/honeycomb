@@ -9,7 +9,11 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-
+configurations.all {
+    exclude group: 'javax.jms',module: 'jms'
+    exclude group: 'com.sun.jdmk',module: 'jmxtools'
+    exclude group: 'com.sun.jmx',module: 'jmxri'
+}
 
 dependencyManagement {
     imports {

@@ -9,31 +9,35 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-//
+
 //sourceSets {
 //    main {
 //        java {
-//            srcDirs = ['src/java']
+//            srcDirs = ['src/main/java']
 //        }
 //        scala {
-//            srcDirs = ['src/scala']
+//            srcDirs = ['src/main/scala']
 //        }
 //    }
 //    test {
 //        java {
-//            srcDirs = ['test/java']
+//            srcDirs = ['src/test/java']
 //        }
 //        scala {
-//            srcDirs = ['test/scala']
+//            srcDirs = ['src/test/scala']
 //        }
 //    }
 //}
 
 dependencies {
 //    compile 'mysql:mysql-connector-java:6.0.6'
+//    compile 'org.scala-lang:scala-library:2.11.8'
+//    compile 'org.scala-lang.modules:scala-xml_2.11:1.0.6'
     compile 'mysql:mysql-connector-java:5.1.39'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.16'
+    compile files('lib/ojdbc-6.jar')
 
+    compile group: 'org.apache.spark', name: 'spark-parent_2.10', version: '2.1.0'
     compile group: 'org.apache.spark', name: 'spark-core_2.10', version: '2.1.0'
     compile group: 'org.apache.spark', name: 'spark-sql_2.10', version: '2.1.0'
     compile group: 'org.apache.spark', name: 'spark-streaming_2.10', version: '2.1.0'

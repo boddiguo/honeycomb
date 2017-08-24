@@ -35,7 +35,7 @@ import java.util.*;
 
 public class MessageParser {
 
-    private static final Logger logger                         = LoggerFactory.getLogger(MessageParser.class);
+    private static final Logger logger = LoggerFactory.getLogger(MessageParser.class);
 
     /**
      * 将对应canal送出来的Entry对象解析为otter使用的内部对象

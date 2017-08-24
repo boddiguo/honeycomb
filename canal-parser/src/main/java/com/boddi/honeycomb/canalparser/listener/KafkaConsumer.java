@@ -1,4 +1,4 @@
-package com.dianrong.honeycomb.canalparser.listener;
+package com.boddi.honeycomb.canalparser.listener;
 
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
