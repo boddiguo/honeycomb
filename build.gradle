@@ -4,7 +4,6 @@ buildscript {
         maven {
           url "https://plugins.gradle.org/m2/"
         }
-        maven { url "http://nexus.dianrong.com/nexus/content/groups/public" }
     }
     dependencies {
         classpath 'io.spring.gradle:dependency-management-plugin:1.0.2.RELEASE'
@@ -26,7 +25,6 @@ allprojects {
     targetCompatibility = '1.8'
     repositories {
         mavenLocal()
-        maven { url "http://nexus.dianrong.com/nexus/content/groups/public" }
     }
 
     dependencies {
