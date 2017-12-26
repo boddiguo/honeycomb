@@ -2,7 +2,7 @@ group 'com.boddi.honeycomb'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-//apply plugin: 'scala'
+apply plugin: 'scala'
 
 sourceCompatibility = 1.8
 
@@ -10,24 +10,24 @@ repositories {
     mavenCentral()
 }
 
-//sourceSets {
-//    main {
-//        java {
-//            srcDirs = ['src/main/java']
-//        }
-//        scala {
-//            srcDirs = ['src/main/scala']
-//        }
-//    }
-//    test {
-//        java {
-//            srcDirs = ['src/test/java']
-//        }
-//        scala {
-//            srcDirs = ['src/test/scala']
-//        }
-//    }
-//}
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        scala {
+            srcDirs = ['src/main/scala']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+        scala {
+            srcDirs = ['src/test/scala']
+        }
+    }
+}
 
 dependencies {
 //    compile 'mysql:mysql-connector-java:6.0.6'
@@ -41,6 +41,8 @@ dependencies {
     compile group: 'org.apache.spark', name: 'spark-core_2.10', version: '2.1.0'
     compile group: 'org.apache.spark', name: 'spark-sql_2.10', version: '2.1.0'
     compile group: 'org.apache.spark', name: 'spark-streaming_2.10', version: '2.1.0'
+    compile group: 'org.apache.spark', name: 'spark-streaming-kafka-0-10_2.10', version: '2.1.0'
     compile group: 'commons-dbutils', name: 'commons-dbutils', version: '1.6'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.3'
 
 }

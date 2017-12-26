@@ -1,0 +1,43 @@
+[
+  {
+    "name": "Register",
+    "sender": "App",
+    "windowSize": "60",
+    "metrics": [
+      {
+        "name": "RegisterCntSum",
+        "type": "Gauge",
+        "config": {
+          "aggregationField": "cnt",
+          "aggregationFuncs": "sum"
+        }
+      },
+      {
+        "name": "RegisterAmtMax",
+        "type": "Gauge",
+        "config": {
+          "aggregationField": "amt",
+          "aggregationFuncs": "max"
+        }
+      },{
+        "name": "RegisterAmtMean",
+        "type": "Gauge",
+        "config": {
+          "aggregationField": "amt",
+          "aggregationFuncs": "mean"
+        }
+      },
+      {
+        "name": "RegisterCounter",
+        "type": "Counter"
+      },
+      {
+        "name": "RegisterHistogram",
+        "type": "Histogram",
+        "config": {
+          "aggregationField": "amt"
+        }
+      }
+    ]
+  }
+]
