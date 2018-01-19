@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="io.honeycomb.core.mapper.ReaderSourceMapper">
+    <resultMap id="result" type="io.honeycomb.core.entity.ReaderSource">
+		<id property="id" column="id"/>
+		<result property="type" column="type"/>
+		<result property="config" column="config"/>
+    </resultMap>
+
+    
+    <select id="getById" parameterType="int" resultMap="result">
+    	SELECT * FROM reader_component WHERE id =#{id}
+    </select>
+
+	<select id="getAll" parameterType="string" resultMap="result">
+		select u.* from reader_component u
+		where is_valid = '1'
+	</select>
+
+	<insert id="insert" parameterType="io.honeycomb.core.entity.ReaderSource">
+        <selectKey resultType="int"  order="AFTER" keyProperty="id" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO reader_component(
+			id,
+			name,
+			address,
+			port,
+			username,
+			password,
+			created_by,
+			created_at,
+			updated_by,
+			updated_at
+		)VALUES(
+			#{id},
+			#{name},
+			#{address},
+			#{port},
+			#{userName},
+			#{password},
+			#{createdBy},
+			NOW(),
+			#{createdBy},
+			NOW()
+		)
+    </insert>
+    
+    <update id="update" parameterType="io.honeycomb.core.entity.ReaderSource">
+		UPDATE reader_component
+		  <set>
+			<if test = "name != null and name != ''">
+				name = #{name},
+			</if>
+			  <if test = "address != null and address != ''">
+				address = #{address},
+			</if>
+			<if test = "port != null">
+				port = #{port},
+			</if>
+			<if test="userName != null and userName != ''">
+				username = #{userName},
+			</if>
+			<if test="password != null and password != ''">
+				password = #{password},
+			</if>
+			<if test=" isValid != null and isValid != ''">
+				is_valid = #{isValid},
+			</if>
+			  updated_at = #{updatedAt},
+			  updated_by = #{updatedBy}
+		 </set>			
+		WHERE id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+    	DELETE FROM reader_component WHERE id = #{id}
+    </delete>
+        
+</mapper>

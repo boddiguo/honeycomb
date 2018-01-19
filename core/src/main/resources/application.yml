@@ -1,0 +1,16 @@
+kafka:
+  bootstrap-servers: localhost:9092
+
+datasource:
+  driverClassName: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/dbm
+  username: root
+  password: 123456
+  maxActive: 15
+  minIdle: 5
+
+reader:
+  job:
+    types:
+      JDBC: io.honeycomb.reader.JdbcReaderJob
+      CANAL: io.honeycomb.reader.JdbcReaderJob

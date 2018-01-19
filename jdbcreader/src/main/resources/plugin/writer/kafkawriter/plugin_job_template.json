@@ -1,0 +1,15 @@
+{
+    "name": "kafkawriter",
+    "parameter": {
+        "columns" : [
+
+        ],
+        "topic": "",
+        "toTableName": "",
+        "connection": [
+            {
+                "bootstrap.servers" : "localhost:9092"
+            }
+        ]
+    }
+}
