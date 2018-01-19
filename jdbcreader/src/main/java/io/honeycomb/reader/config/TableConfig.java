@@ -25,6 +25,8 @@ public class TableConfig {
 
   private String extractValueType;
 
+  private String writeMode;
+
 
 
 

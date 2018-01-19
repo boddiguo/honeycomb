@@ -1,0 +1,6 @@
+{
+    "name": "kafkawriter",
+    "class": "com.alibaba.datax.plugin.writer.kafkawriter.KafkaWriter",
+    "description": "useScene: prod. mechanism:write record to kafka",
+    "developer": "boddiguo"
+}

@@ -45,7 +45,7 @@ public class JobManager {
   @Autowired
   JobEngine jobEngine;
 
-//  @PostConstruct
+  @PostConstruct
   public void init() {
     List<ReaderItem> readerItems = readerItemService.getAllReaderItems();
     for (ReaderItem readerItem : readerItems) {
@@ -66,7 +66,7 @@ public class JobManager {
     if (readerSource.getType().equals("JDBC")) {
       String itemConfig = readerItem.getItemConfig();
       JSONObject itemConfigJson = JSON.parseObject(itemConfig);
-      String cronExpression = itemConfigJson.getString("cronExpression");
+      String cronExpression = itemConfigJson.getString("cron");
       if (cronExpression != null) {
 
         final QuartzJobDescription jobDescription = new QuartzJobDescription("db_sync", SyncQuartzJob.class, "etl");

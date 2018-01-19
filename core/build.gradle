@@ -9,6 +9,35 @@ dependencyManagement {
 }
 
 
+sourceSets {
+//   main {
+//      resources.srcDirs += 'src/main/resources'
+//      resources.srcDirs += 'src/main/webapp/WEB-INF'
+//   }
+//   test {
+//      resources.srcDirs += 'src/main/resources'
+//      resources.srcDirs += 'src/test/webapp/WEB-INF'
+//   }
+
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir 'src/main/resources'
+        }
+        output.resourcesDir = "build/classes/test"
+    }
+    test {
+        java {
+            srcDir 'src/main/java'
+            srcDir 'src/main/resources'
+        }
+        output.resourcesDir = "build/classes/test"
+    }
+
+
+}
+
+
 dependencies {
     compile  project(":common")
     compile  project(":jdbcreader")

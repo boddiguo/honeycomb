@@ -5,15 +5,16 @@
 		<id property="id" column="id"/>
 		<result property="type" column="type"/>
 		<result property="config" column="config"/>
+		<result property="kafkaServerAddress" column="kafka_server_address"/>
     </resultMap>
 
     
     <select id="getById" parameterType="int" resultMap="result">
-    	SELECT * FROM reader_component WHERE id =#{id}
+    	SELECT * FROM reader_source WHERE id =#{id}
     </select>
 
 	<select id="getAll" parameterType="string" resultMap="result">
-		select u.* from reader_component u
+		select u.* from reader_source u
 		where is_valid = '1'
 	</select>
 
@@ -21,24 +22,20 @@
         <selectKey resultType="int"  order="AFTER" keyProperty="id" >
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		INSERT INTO reader_component(
+		INSERT INTO reader_source(
 			id,
-			name,
-			address,
-			port,
-			username,
-			password,
+			type,
+			config,
+			kafka_server_address,
 			created_by,
 			created_at,
 			updated_by,
 			updated_at
 		)VALUES(
 			#{id},
-			#{name},
-			#{address},
-			#{port},
-			#{userName},
-			#{password},
+			#{type},
+			#{config},
+			#{kafkaServerAddress},
 			#{createdBy},
 			NOW(),
 			#{createdBy},
@@ -47,22 +44,13 @@
     </insert>
     
     <update id="update" parameterType="io.honeycomb.core.entity.ReaderSource">
-		UPDATE reader_component
+		UPDATE reader_source
 		  <set>
-			<if test = "name != null and name != ''">
-				name = #{name},
+			<if test = "config != null and config != ''">
+				config = #{config},
 			</if>
-			  <if test = "address != null and address != ''">
-				address = #{address},
-			</if>
-			<if test = "port != null">
-				port = #{port},
-			</if>
-			<if test="userName != null and userName != ''">
-				username = #{userName},
-			</if>
-			<if test="password != null and password != ''">
-				password = #{password},
+			  <if test = "kafkaServerAddress != null and kafkaServerAddress != ''">
+				  kafka_server_address = #{kafkaServerAddress},
 			</if>
 			<if test=" isValid != null and isValid != ''">
 				is_valid = #{isValid},
@@ -74,7 +62,7 @@
     </update>
     
     <delete id="delete" parameterType="int">
-    	DELETE FROM reader_component WHERE id = #{id}
+    	DELETE FROM reader_source WHERE id = #{id}
     </delete>
         
 </mapper>

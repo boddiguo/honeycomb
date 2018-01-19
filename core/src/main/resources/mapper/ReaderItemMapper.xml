@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="io.honeycomb.core.mapper.ReaderItemMapper">
+    <resultMap id="result" type="io.honeycomb.core.entity.ReaderItem">
+		<id property="id" column="id"/>
+		<result property="sourceId" column="source_id"/>
+		<result property="name" column="name"/>
+		<result property="itemConfig" column="item_config"/>
+		<result property="status" column="status"/>
+    </resultMap>
+
+    
+    <select id="getById" parameterType="int" resultMap="result">
+    	SELECT * FROM reader_item WHERE id =#{id}
+    </select>
+
+	<select id="getAll" parameterType="string" resultMap="result">
+		select u.* from reader_item u
+		where is_valid = '1'
+	</select>
+
+	<insert id="insert" parameterType="io.honeycomb.core.entity.ReaderItem">
+        <selectKey resultType="int"  order="AFTER" keyProperty="id" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO reader_item(
+			id,
+			source_id,
+			name,
+			item_config,
+			status,
+			created_by,
+			created_at,
+			updated_by,
+			updated_at
+		)VALUES(
+			#{id},
+			#{sourceId},
+			#{name},
+			#{itemConfig},
+			#{status},
+			#{createdBy},
+			NOW(),
+			#{createdBy},
+			NOW()
+		)
+    </insert>
+    
+    <update id="update" parameterType="io.honeycomb.core.entity.ReaderItem">
+		UPDATE reader_item
+		  <set>
+			<if test = "name != null and name != ''">
+				name = #{name},
+			</if>
+			  <if test = "itemConfig != null and itemConfig != ''">
+				  item_config = #{itemConfig},
+			</if>
+			  <if test = "status != null and status != ''">
+				  status = #{status},
+			</if>
+			<if test=" isValid != null and isValid != ''">
+				is_valid = #{isValid},
+			</if>
+			  updated_at = #{updatedAt},
+			  updated_by = #{updatedBy}
+		 </set>			
+		WHERE id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+    	DELETE FROM reader_item WHERE id = #{id}
+    </delete>
+        
+</mapper>

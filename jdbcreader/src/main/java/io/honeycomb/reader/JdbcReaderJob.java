@@ -158,6 +158,7 @@ public class JdbcReaderJob extends AbstractReaderJob {
     parameterObject.put("topic", "datax.db.sync");
     parameterObject.put("toTableName", tableConfig.getToTableName());
     parameterObject.put("column", columns);
+    parameterObject.put("writeMode", tableConfig.getWriteMode());
     JSONArray connectionArray = new JSONArray();
     JSONObject connectionObject = new JSONObject();
     connectionObject.put("serverAddress", readerJobConfig.getKafkaServerAddress());
